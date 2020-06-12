@@ -18,3 +18,10 @@ C:\Users\lutfi\Desktop\school\backend\obj\Debug\netcoreapp3.1\staticwebassets\ba
 C:\Users\lutfi\Desktop\school\backend\obj\Debug\netcoreapp3.1\backend.dll
 C:\Users\lutfi\Desktop\school\backend\obj\Debug\netcoreapp3.1\backend.pdb
 C:\Users\lutfi\Desktop\school\backend\obj\Debug\netcoreapp3.1\backend.genruntimeconfig.cache
+C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\lutfi\Desktop\school\backend\obj\Debug\netcoreapp3.1\backend.csproj.CopyComplete

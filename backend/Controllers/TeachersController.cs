@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using backend.Data;
+using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -12,6 +14,12 @@ namespace backend.Controllers
     public TeachersController(ITeacherRepository repo)
     {
       _repo = repo;
+    }
+
+    [HttpGet]
+    public List<Teacher> GetTeachers()
+    {
+      return _repo.GetAllTeachers();
     }
   }
 }

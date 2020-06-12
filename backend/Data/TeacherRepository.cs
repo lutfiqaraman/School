@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using backend.Models;
 using Microsoft.Extensions.Configuration;
@@ -16,10 +18,40 @@ namespace backend.Data
     }
 
     // To get all teachers from database
-    public Task<List<Teacher>> GetAllTeachers()
+    public List<Teacher> GetAllTeachers()
     {
+      List<Teacher> teacherList = new List<Teacher>();
+
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
-      throw new System.NotImplementedException();
+      string sql = "Select * from teacher";
+
+      SqlConnection conn = new SqlConnection(connectionString);
+      
+      using (conn) 
+      {
+        conn.Open();
+
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        SqlDataReader dataReader = cmd.ExecuteReader();
+
+        using (dataReader)
+        {
+          while (dataReader.Read())
+          {
+            Teacher teacher = new Teacher();
+
+            teacher.Id = Convert.ToInt32(dataReader["Id"]);
+            teacher.Name = Convert.ToString(dataReader["Name"]);
+            teacher.Skills = Convert.ToString(dataReader["Skills"]);
+            teacher.Salary = Convert.ToDecimal(dataReader["Salary"]);
+            teacher.AddedOn = Convert.ToDateTime(dataReader["AddedOn"]);
+
+            teacherList.Add(teacher);
+          }
+        }
+      }
+      
+      return teacherList;
     }
 
     public Task<Teacher> CreateTeacher()

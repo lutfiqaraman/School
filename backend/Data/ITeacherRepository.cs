@@ -8,7 +8,7 @@ namespace backend.Data
   {
     Task<Teacher> GetTeacher();
 
-    Task<List<Teacher>> GetAllTeachers();
+    List<Teacher> GetAllTeachers();
     
     Task<Teacher> CreateTeacher();
     
