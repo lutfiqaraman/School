@@ -1,17 +1,16 @@
-using System;
+using backend.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
-  [ApiController]
   [Route("[controller]")]
-  public class TeachersController : ControllerBase
+  [ApiController]
+  public class TeachersController
   {
-    [HttpGet]
-    public IActionResult GetTeachers()
+    private readonly ITeacherRepository _repository;
+    public TeachersController(ITeacherRepository repository)
     {
-      string test = "Get techars API";
-      return Ok(test);
+      _repository = repository;
     }
   }
 }
