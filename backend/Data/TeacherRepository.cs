@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend.Models;
 using Microsoft.Extensions.Configuration;
@@ -8,15 +9,17 @@ namespace backend.Data
   {
     private readonly IConfiguration _config;
 
-    // To get all teachers from database
-    public Task<Teacher> GetAllTeachers()
-    {
-      throw new System.NotImplementedException();
-    }
-
+    // Teacher Repository - Constructor
     public TeacherRepository(IConfiguration config)
     {
       _config = config;
+    }
+
+    // To get all teachers from database
+    public Task<List<Teacher>> GetAllTeachers()
+    {
+      string connectionString = _config.GetConnectionString("SchoolDBConnection");
+      throw new System.NotImplementedException();
     }
 
     public Task<Teacher> CreateTeacher()
