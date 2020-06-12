@@ -7,10 +7,10 @@ namespace backend.Controllers
   [ApiController]
   public class TeachersController
   {
-    private readonly ITeacherRepository _repository;
-    public TeachersController(ITeacherRepository repository)
+    private readonly ITeacherRepository _repo;
+    public TeachersController(ITeacherRepository repo)
     {
-      _repository = repository;
+      _repo = repo;
     }
   }
 }
