@@ -8,6 +8,7 @@ namespace backend.Controllers
   public class TeachersController
   {
     private readonly ITeacherRepository _repo;
+    
     public TeachersController(ITeacherRepository repo)
     {
       _repo = repo;
