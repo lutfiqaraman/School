@@ -21,11 +21,10 @@ namespace backend.Data
     // To get all teachers from database
     public List<Teacher> GetAllTeachers()
     {
-      List<Teacher> teacherList = new List<Teacher>();
-
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
       string sql = "Select * from teacher";
 
+      List<Teacher> teacherList = new List<Teacher>();
       SqlConnection conn = new SqlConnection(connectionString);
 
       using (conn)
@@ -88,21 +87,24 @@ namespace backend.Data
 
       return teacher;
     }
-    public Task<Teacher> CreateTeacher()
+
+    // to create a teacher
+    public Teacher CreateTeacher()
     {
       throw new System.NotImplementedException();
     }
 
-    public Task<Teacher> DeleteTeacher()
+    // to update a teacher
+    public Teacher UpdateTeacher(int id)
     {
       throw new System.NotImplementedException();
     }
 
-
-
-    public Task<Teacher> UpdateTeacher()
+    // to delete a teacher 
+    public Teacher DeleteTeacher(int id)
     {
       throw new System.NotImplementedException();
     }
+
   }
 }

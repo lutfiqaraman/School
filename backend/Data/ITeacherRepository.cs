@@ -10,10 +10,10 @@ namespace backend.Data
 
     List<Teacher> GetAllTeachers();
     
-    Task<Teacher> CreateTeacher();
+    Teacher CreateTeacher();
     
-    Task<Teacher> UpdateTeacher();
+    Teacher UpdateTeacher(int id);
     
-    Task<Teacher> DeleteTeacher();
+    Teacher DeleteTeacher(int id);
   }
 }
