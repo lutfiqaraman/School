@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using backend.Models;
@@ -26,8 +27,8 @@ namespace backend.Data
       string sql = "Select * from teacher";
 
       SqlConnection conn = new SqlConnection(connectionString);
-      
-      using (conn) 
+
+      using (conn)
       {
         conn.Open();
 
@@ -50,10 +51,43 @@ namespace backend.Data
           }
         }
       }
-      
+
       return teacherList;
     }
 
+    // to get a teacher by id
+    public Teacher GetTeacherById(int id)
+    {
+      string connectionString = _config.GetConnectionString("SchoolDBConnection");
+      string sql = "Select * from teacher where id = @id";
+
+      Teacher teacher = new Teacher();
+      SqlConnection conn = new SqlConnection(connectionString);
+
+      using (conn)
+      {
+        conn.Open();
+
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("id", id);
+
+        SqlDataReader dataReader = cmd.ExecuteReader();
+
+        using (dataReader)
+        {
+          while (dataReader.Read())
+          {
+            teacher.Id = Convert.ToInt32(dataReader["Id"]);
+            teacher.Name = Convert.ToString(dataReader["Name"]);
+            teacher.Skills = Convert.ToString(dataReader["Skills"]);
+            teacher.Salary = Convert.ToDecimal(dataReader["Salary"]);
+            teacher.AddedOn = Convert.ToDateTime(dataReader["AddedOn"]);
+          }
+        }
+      }
+
+      return teacher;
+    }
     public Task<Teacher> CreateTeacher()
     {
       throw new System.NotImplementedException();
@@ -64,10 +98,7 @@ namespace backend.Data
       throw new System.NotImplementedException();
     }
 
-    public Task<Teacher> GetTeacher()
-    {
-      throw new System.NotImplementedException();
-    }
+
 
     public Task<Teacher> UpdateTeacher()
     {

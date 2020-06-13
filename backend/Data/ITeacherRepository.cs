@@ -6,7 +6,7 @@ namespace backend.Data
 {
   public interface ITeacherRepository
   {
-    Task<Teacher> GetTeacher();
+    Teacher GetTeacherById(int id);
 
     List<Teacher> GetAllTeachers();
     

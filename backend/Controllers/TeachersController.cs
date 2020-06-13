@@ -21,5 +21,11 @@ namespace backend.Controllers
     {
       return _repo.GetAllTeachers();
     }
+
+    [HttpGet("{id}")]
+    public Teacher GetTeacher(int id)
+    {
+      return _repo.GetTeacherById(id);
+    }
   }
 }
