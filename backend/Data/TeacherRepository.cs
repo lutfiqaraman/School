@@ -49,6 +49,8 @@ namespace backend.Data
             teacherList.Add(teacher);
           }
         }
+
+        cmd.Dispose();
       }
 
       return teacherList;
@@ -83,6 +85,8 @@ namespace backend.Data
             teacher.AddedOn = Convert.ToDateTime(dataReader["AddedOn"]);
           }
         }
+
+        cmd.Dispose();
       }
 
       return teacher;
