@@ -22,7 +22,7 @@ namespace backend.Data
     public List<Teacher> GetAllTeachers()
     {
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
-      string sql = "Select * from teacher";
+      string sqlQuery = "Select * from teacher";
 
       List<Teacher> teacherList = new List<Teacher>();
       SqlConnection conn = new SqlConnection(connectionString);
@@ -31,7 +31,7 @@ namespace backend.Data
       {
         conn.Open();
 
-        SqlCommand cmd = new SqlCommand(sql, conn);
+        SqlCommand cmd = new SqlCommand(sqlQuery, conn);
         SqlDataReader dataReader = cmd.ExecuteReader();
 
         using (dataReader)
@@ -58,7 +58,7 @@ namespace backend.Data
     public Teacher GetTeacherById(int id)
     {
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
-      string sql = "Select * from teacher where id = @id";
+      string sqlQuery = "Select * from teacher where id = @id";
 
       Teacher teacher = new Teacher();
       SqlConnection conn = new SqlConnection(connectionString);
@@ -67,7 +67,7 @@ namespace backend.Data
       {
         conn.Open();
 
-        SqlCommand cmd = new SqlCommand(sql, conn);
+        SqlCommand cmd = new SqlCommand(sqlQuery, conn);
         cmd.Parameters.AddWithValue("id", id);
 
         SqlDataReader dataReader = cmd.ExecuteReader();
