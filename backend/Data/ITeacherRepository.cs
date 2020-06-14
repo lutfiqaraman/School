@@ -14,6 +14,6 @@ namespace backend.Data
     
     Teacher UpdateTeacher(int id);
     
-    Teacher DeleteTeacher(int id);
+    void DeleteTeacher(int id);
   }
 }

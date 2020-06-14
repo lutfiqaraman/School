@@ -27,5 +27,11 @@ namespace backend.Controllers
     {
       return _repo.GetTeacherById(id);
     }
+
+    [HttpDelete("{id}")]
+    public void DeleteTeacher(int id)
+    {
+      _repo.DeleteTeacher(id);
+    }
   }
 }

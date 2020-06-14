@@ -101,9 +101,23 @@ namespace backend.Data
     }
 
     // to delete a teacher 
-    public Teacher DeleteTeacher(int id)
+    public void DeleteTeacher(int id)
     {
-      throw new System.NotImplementedException();
+      string connectionString = _config.GetConnectionString("SchoolDBConnection");
+      string sqlQuery = "DELETE FROM teacher where id = @id";
+
+      SqlConnection conn = new SqlConnection(connectionString);
+
+      using(conn)
+      {
+        conn.Open();
+
+        SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+        cmd.Parameters.AddWithValue("id", id);
+
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+      }
     }
 
   }
