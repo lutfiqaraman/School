@@ -28,6 +28,12 @@ namespace backend.Controllers
       return _repo.GetTeacherById(id);
     }
 
+    [HttpPost]
+    public void PostTeacher([FromBody] Teacher teacher)
+    {
+      _repo.CreateTeacher(teacher);
+    }
+
     [HttpDelete("{id}")]
     public void DeleteTeacher(int id)
     {

@@ -93,9 +93,27 @@ namespace backend.Data
     }
 
     // to create a teacher
-    public Teacher CreateTeacher()
+    public void CreateTeacher(Teacher teacher)
     {
-      throw new System.NotImplementedException();
+      string connectionString = _config.GetConnectionString("SchoolDBConnection");
+      string sqlQuery = "INSERT INTO Teacher (Name, Skills, Salary, AddedOn) VALUES (@Name, @Skills, @Salary, @AddedOn)";
+
+      DateTime CurrDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MMM-dd"));
+
+      SqlConnection conn = new SqlConnection(connectionString);
+
+      using (conn)
+      {
+        SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+
+        cmd.Parameters.AddWithValue("@Name", teacher.Name);
+        cmd.Parameters.AddWithValue("@Skills", teacher.Skills);
+        cmd.Parameters.AddWithValue("@Salary", teacher.Salary);
+        cmd.Parameters.AddWithValue("@AddedOn", CurrDate);
+
+        conn.Open();
+        cmd.ExecuteNonQuery();
+      }
     }
 
     // to update a teacher
@@ -112,7 +130,7 @@ namespace backend.Data
 
       SqlConnection conn = new SqlConnection(connectionString);
 
-      using(conn)
+      using (conn)
       {
         conn.Open();
 

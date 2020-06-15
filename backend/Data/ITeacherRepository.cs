@@ -10,7 +10,7 @@ namespace backend.Data
 
     List<Teacher> GetAllTeachers();
     
-    Teacher CreateTeacher();
+    void CreateTeacher(Teacher teacher);
     
     Teacher UpdateTeacher(int id);
     
