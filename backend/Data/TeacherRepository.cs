@@ -56,7 +56,7 @@ namespace backend.Data
       return teacherList;
     }
 
-    // to get a teacher by id
+    // to get a teacher by id from database
     public Teacher GetTeacherById(int id)
     {
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
@@ -93,7 +93,7 @@ namespace backend.Data
     }
 
     // to create a teacher
-    public void CreateTeacher(Teacher teacher)
+    public Teacher CreateTeacher(Teacher teacher)
     {
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
       string sqlQuery = "INSERT INTO Teacher (Name, Skills, Salary, AddedOn) VALUES (@Name, @Skills, @Salary, @AddedOn)";
@@ -114,10 +114,12 @@ namespace backend.Data
         conn.Open();
         cmd.ExecuteNonQuery();
       }
+      
+      return teacher;
     }
 
     // to update a teacher
-    public void UpdateTeacher(Teacher teacher, int id)
+    public Teacher UpdateTeacher(Teacher teacher, int id)
     {
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
       string sqlQuery =
@@ -128,13 +130,15 @@ namespace backend.Data
         "AddedOn = @AddedOn " +
         "where id = @id";
 
+      teacher.Id = id;
+
       SqlConnection conn = new SqlConnection(connectionString);
 
       using (conn)
       {
         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
 
-        cmd.Parameters.AddWithValue("@id", id);
+        cmd.Parameters.AddWithValue("@id", teacher.Id);
         cmd.Parameters.AddWithValue("@Name", teacher.Name);
         cmd.Parameters.AddWithValue("@Skills", teacher.Skills);
         cmd.Parameters.AddWithValue("@Salary", teacher.Salary);
@@ -143,6 +147,8 @@ namespace backend.Data
         conn.Open();
         cmd.ExecuteNonQuery();
       }
+
+      return teacher;
     }
 
     // to delete a teacher 

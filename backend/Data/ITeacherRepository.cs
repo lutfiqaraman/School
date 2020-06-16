@@ -10,9 +10,9 @@ namespace backend.Data
 
     List<Teacher> GetAllTeachers();
     
-    void CreateTeacher(Teacher teacher);
+    Teacher CreateTeacher(Teacher teacher);
     
-    void UpdateTeacher(Teacher teacher, int id);
+    Teacher UpdateTeacher(Teacher teacher, int id);
     
     void DeleteTeacher(int id);
   }

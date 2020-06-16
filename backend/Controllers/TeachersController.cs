@@ -29,15 +29,15 @@ namespace backend.Controllers
     }
 
     [HttpPost]
-    public void PostTeacher([FromBody] Teacher teacher)
+    public Teacher PostTeacher([FromBody] Teacher teacher)
     {
-      _repo.CreateTeacher(teacher);
+      return _repo.CreateTeacher(teacher);
     }
 
     [HttpPut("{id}")]
-    public void UpdateTeacher([FromBody] Teacher teacher, int id)
+    public Teacher UpdateTeacher([FromBody] Teacher teacher, int id)
     {
-      _repo.UpdateTeacher(teacher, id);
+      return _repo.UpdateTeacher(teacher, id);
     }
 
     [HttpDelete("{id}")]
