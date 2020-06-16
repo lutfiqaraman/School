@@ -34,6 +34,12 @@ namespace backend.Controllers
       _repo.CreateTeacher(teacher);
     }
 
+    [HttpPut("{id}")]
+    public void UpdateTeacher([FromBody] Teacher teacher, int id)
+    {
+      _repo.UpdateTeacher(teacher, id);
+    }
+
     [HttpDelete("{id}")]
     public void DeleteTeacher(int id)
     {

@@ -117,9 +117,32 @@ namespace backend.Data
     }
 
     // to update a teacher
-    public Teacher UpdateTeacher(int id)
+    public void UpdateTeacher(Teacher teacher, int id)
     {
-      throw new System.NotImplementedException();
+      string connectionString = _config.GetConnectionString("SchoolDBConnection");
+      string sqlQuery =
+        "UPDATE Teacher set " +
+        "Name = @Name, " +
+        "Skills = @Skills, " +
+        "Salary = @Salary, " +
+        "AddedOn = @AddedOn " +
+        "where id = @id";
+
+      SqlConnection conn = new SqlConnection(connectionString);
+
+      using (conn)
+      {
+        SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+
+        cmd.Parameters.AddWithValue("@id", id);
+        cmd.Parameters.AddWithValue("@Name", teacher.Name);
+        cmd.Parameters.AddWithValue("@Skills", teacher.Skills);
+        cmd.Parameters.AddWithValue("@Salary", teacher.Salary);
+        cmd.Parameters.Add("@AddedOn", SqlDbType.DateTime2).Value = teacher.AddedOn;
+
+        conn.Open();
+        cmd.ExecuteNonQuery();
+      }
     }
 
     // to delete a teacher 

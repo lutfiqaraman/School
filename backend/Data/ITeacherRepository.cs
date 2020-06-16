@@ -12,7 +12,7 @@ namespace backend.Data
     
     void CreateTeacher(Teacher teacher);
     
-    Teacher UpdateTeacher(int id);
+    void UpdateTeacher(Teacher teacher, int id);
     
     void DeleteTeacher(int id);
   }
