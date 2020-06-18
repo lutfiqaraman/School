@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
-  [Route("[controller]")]
+  [Route("[controller/action]")]
   [ApiController]
   public class TeachersController
   {
