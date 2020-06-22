@@ -28,6 +28,13 @@ namespace backend
         {
             services.AddControllers();
             services.AddScoped<ITeacherRepository, TeacherRepository>();
+            services.AddCors(options => 
+            {
+              options.AddPolicy("CorsPolicy", 
+                builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +47,7 @@ namespace backend
 
             // app.UseHttpsRedirection();
 
+            app.UseCors("CorsPolicy");
             app.UseRouting();
 
             app.UseAuthorization();
