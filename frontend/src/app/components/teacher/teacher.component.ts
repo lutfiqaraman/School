@@ -10,7 +10,6 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class TeacherComponent implements OnInit {
   teacher: ITeacher[] = [];
-  datasource: Observable<ITeacher[]>;
 
   constructor(public teacherService: TeacherService) {}
 
@@ -21,6 +20,7 @@ export class TeacherComponent implements OnInit {
   getTeacher() {
     const id = 1;
     return this.teacherService.getTeacherById(id).subscribe((data) => {
+      console.log(data);
       this.teacher = data;
     });
   }

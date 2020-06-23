@@ -25,3 +25,4 @@ C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\runtimes\win-x86\n
 C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\lutfi\Desktop\school\backend\obj\Debug\netcoreapp3.1\backend.csproj.CopyComplete
+C:\Users\lutfi\Desktop\school\backend\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
