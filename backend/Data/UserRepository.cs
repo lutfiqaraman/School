@@ -14,16 +14,6 @@ namespace backend.Data
       _config = config;
     }
 
-    public User CreateUser()
-    {
-      throw new System.NotImplementedException();
-    }
-
-    public void DeleteUser(int id)
-    {
-      throw new System.NotImplementedException();
-    }
-
     public List<User> GetAllUsers()
     {
       throw new System.NotImplementedException();
@@ -34,7 +24,17 @@ namespace backend.Data
       throw new System.NotImplementedException();
     }
 
+    public User CreateUser()
+    {
+      throw new System.NotImplementedException();
+    }
+
     public User UpdateUser()
+    {
+      throw new System.NotImplementedException();
+    }
+
+    public void DeleteUser(int id)
     {
       throw new System.NotImplementedException();
     }
