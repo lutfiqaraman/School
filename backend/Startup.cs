@@ -27,7 +27,10 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
             services.AddScoped<ITeacherRepository, TeacherRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddCors(options => 
             {
               options.AddPolicy("CorsPolicy", 
