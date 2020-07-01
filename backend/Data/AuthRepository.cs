@@ -1,3 +1,5 @@
+using System;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using backend.Models;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +9,7 @@ namespace backend.Data
   public class AuthRepository : IAuthRepository
   {
     private readonly IConfiguration _config;
+
     public AuthRepository(IConfiguration config)
     {
       _config = config;
@@ -22,9 +25,26 @@ namespace backend.Data
       throw new System.NotImplementedException();
     }
 
-    public Task<User> Register(User user, string password)
+    public async Task<User> Register(User user, string password)
     {
-      throw new System.NotImplementedException();
+      byte[] passwordHash, passwordSalt;
+      CreateHashedPassword(password, out passwordHash, out passwordSalt);
+
+      user.PasswordHash = passwordHash;
+      user.PasswordSalt = passwordSalt;
+      
+      return user;
+    }
+
+    private void CreateHashedPassword(string password, out byte[] passwordHash, out byte[] passwordSalt)
+    {
+      var hmac = new HMACSHA512();
+
+      using (hmac)
+      {
+        passwordSalt = hmac.Key;
+        passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+      }
     }
   }
 }
