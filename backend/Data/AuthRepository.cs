@@ -16,9 +16,31 @@ namespace backend.Data
       _config = config;
     }
 
-    public Task<bool> IsUserExist(string username)
+    public async Task<bool> IsUserExist(string username)
     {
-      throw new System.NotImplementedException();
+      int id = 0;
+      string connectionString = _config.GetConnectionString("SchoolDBConnection");
+      string sqlQuery = "Select Id from user where UserName = @UserName";
+
+      User user = new User();
+      SqlConnection conn = new SqlConnection(connectionString);
+
+      using (conn)
+      {
+        conn.Open();
+
+        SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+        cmd.Parameters.AddWithValue("UserName", username);
+
+        id = (Int32)await cmd.ExecuteScalarAsync();
+
+        cmd.Dispose();
+      }
+
+      if (id != 0)
+        return true;
+
+      return false;
     }
 
     public async Task<User> Login(string username, string password)
@@ -37,7 +59,7 @@ namespace backend.Data
         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
         cmd.Parameters.AddWithValue("UserName", username);
 
-        id = (Int32) await cmd.ExecuteScalarAsync();
+        id = (Int32)await cmd.ExecuteScalarAsync();
 
         cmd.Dispose();
       }
