@@ -63,7 +63,7 @@ namespace backend.Data
       string sqlQuery = "Select * from teacher where id = @id";
 
       Teacher teacher = new Teacher();
-      List<Teacher> teacherList = new List<Teacher>();
+      
       SqlConnection conn = new SqlConnection(connectionString);
 
       using (conn)

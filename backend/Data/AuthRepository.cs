@@ -21,12 +21,57 @@ namespace backend.Data
       throw new System.NotImplementedException();
     }
 
-    public Task<User> Login(string username, string password)
+    public async Task<User> Login(string username, string password)
     {
-      throw new System.NotImplementedException();
+      int id = 0;
+      string connectionString = _config.GetConnectionString("SchoolDBConnection");
+      string sqlQuery = "Select Id from user where UserName = @UserName";
+
+      User user = new User();
+      SqlConnection conn = new SqlConnection(connectionString);
+
+      using (conn)
+      {
+        conn.Open();
+
+        SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+        cmd.Parameters.AddWithValue("UserName", username);
+
+        id = (Int32) await cmd.ExecuteScalarAsync();
+
+        cmd.Dispose();
+      }
+
+      if (id == 0)
+        return null;
+
+      bool result = VerifyingPassword(password, user.PasswordHash, user.PasswordSalt);
+
+      if (!result)
+        return null;
+
+      return user;
     }
 
-    public User Register(User user, string password)
+    private bool VerifyingPassword(string password, byte[] passwordHash, byte[] passwordSalt)
+    {
+      HMACSHA512 hmac = new HMACSHA512(passwordSalt);
+
+      using (hmac)
+      {
+        byte[] computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+        for (int i = 0; i < computedHash.Length; i++)
+        {
+          if (computedHash[i] != passwordHash[i])
+            return false;
+        }
+
+        return true;
+      }
+    }
+
+    public async Task<User> Register(User user, string password)
     {
       byte[] passwordHash, passwordSalt;
       CreateHashedPassword(password, out passwordHash, out passwordSalt);
@@ -48,7 +93,7 @@ namespace backend.Data
         cmd.Parameters.AddWithValue("@PasswordSalt", user.PasswordSalt);
 
         conn.Open();
-        cmd.ExecuteNonQuery();
+        await cmd.ExecuteNonQueryAsync();
       }
 
       return user;
