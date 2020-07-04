@@ -57,7 +57,7 @@ namespace backend.Data
     }
 
     // to get a teacher by id from database
-    public Teacher GetTeacherById(int id)
+    public async Task<Teacher> GetTeacherById(int id)
     {
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
       string sqlQuery = "Select * from teacher where id = @id";
@@ -73,7 +73,7 @@ namespace backend.Data
         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
         cmd.Parameters.AddWithValue("id", id);
 
-        SqlDataReader dataReader = cmd.ExecuteReader();
+        SqlDataReader dataReader = await cmd.ExecuteReaderAsync();
 
         using (dataReader)
         {
@@ -87,7 +87,7 @@ namespace backend.Data
           }
         }
 
-        cmd.Dispose();
+        await cmd.DisposeAsync();
       }
 
       return teacher;

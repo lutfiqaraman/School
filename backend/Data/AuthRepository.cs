@@ -32,7 +32,7 @@ namespace backend.Data
         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
         cmd.Parameters.AddWithValue("UserName", username);
 
-        id = (Int32)await cmd.ExecuteScalarAsync();
+        id = (int) await cmd.ExecuteScalarAsync();
 
         cmd.Dispose();
       }

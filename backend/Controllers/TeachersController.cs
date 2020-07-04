@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using backend.Data;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace backend.Controllers
     }
 
     [HttpGet("{id}")]
-    public Teacher GetTeacher(int id)
+    public Task<Teacher> GetTeacher(int id)
     {
       return _repo.GetTeacherById(id);
     }
