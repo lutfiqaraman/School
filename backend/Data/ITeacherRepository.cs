@@ -8,7 +8,7 @@ namespace backend.Data
   {
     Task<Teacher> GetTeacherById(int id);
 
-    List<Teacher> GetAllTeachers();
+    Task<List<Teacher>> GetAllTeachers();
     
     Teacher CreateTeacher(Teacher teacher);
     

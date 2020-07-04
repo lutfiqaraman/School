@@ -19,7 +19,7 @@ namespace backend.Data
     }
 
     // To get all teachers from database
-    public List<Teacher> GetAllTeachers()
+    public async Task<List<Teacher>> GetAllTeachers()
     {
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
       string sqlQuery = "Select * from teacher";
@@ -32,7 +32,7 @@ namespace backend.Data
         conn.Open();
 
         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
-        SqlDataReader dataReader = cmd.ExecuteReader();
+        SqlDataReader dataReader = await cmd.ExecuteReaderAsync();
 
         using (dataReader)
         {
@@ -50,7 +50,7 @@ namespace backend.Data
           }
         }
 
-        cmd.Dispose();
+        await cmd.DisposeAsync();
       }
 
       return teacherList;

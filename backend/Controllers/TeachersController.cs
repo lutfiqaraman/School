@@ -18,7 +18,7 @@ namespace backend.Controllers
     }
 
     [HttpGet]
-    public List<Teacher> GetTeachers()
+    public Task<List<Teacher>> GetTeachers()
     {
       return _repo.GetAllTeachers();
     }
