@@ -30,6 +30,7 @@ namespace backend
             
             services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
 
             services.AddCors(options => 
             {
