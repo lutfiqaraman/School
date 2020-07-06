@@ -1,7 +1,12 @@
+
+using Microsoft.AspNetCore.Mvc;
+
 namespace backend.Controllers
 {
-    public class AuthController
-    {
-        
-    }
+  [ApiController]
+  [Route("[controller]")]
+  public class AuthController
+  {
+    
+  }
 }
