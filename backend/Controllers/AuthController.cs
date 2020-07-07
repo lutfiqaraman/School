@@ -1,4 +1,5 @@
 
+using System.Threading.Tasks;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,5 +14,13 @@ namespace backend.Controllers
     {
       _repo = repo;
     }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(string username, string password)
+    {
+      username = username.ToLower();
+      return null;
+    }
+
   }
 }
