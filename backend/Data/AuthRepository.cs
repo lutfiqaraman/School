@@ -18,9 +18,10 @@ namespace backend.Data
 
     public async Task<bool> IsUserExist(string username)
     {
-      int id = 0;
+
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
-      string sqlQuery = "Select Id from user where UserName = @UserName";
+      string sqlQuery = "SELECT Id FROM Users " +
+                        "where UserName = @UserName";
 
       User user = new User();
       SqlConnection conn = new SqlConnection(connectionString);
@@ -32,13 +33,13 @@ namespace backend.Data
         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
         cmd.Parameters.AddWithValue("UserName", username);
 
-        id = (int) await cmd.ExecuteScalarAsync();
+        object id = await cmd.ExecuteScalarAsync();
+
+        if (id != null)
+          return true;
 
         cmd.Dispose();
       }
-
-      if (id != 0)
-        return true;
 
       return false;
     }
@@ -102,7 +103,8 @@ namespace backend.Data
       user.PasswordSalt = passwordSalt;
 
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
-      string sqlQuery = "INSERT INTO User (UserName, PasswordHash, PasswordSalt) VALUES (@UserName, @PasswordHash, @PasswordSalt)";
+      string sqlQuery = "INSERT INTO Users (UserName, PasswordHash, PasswordSalt) " +  
+                        "VALUES (@UserName, @PasswordHash, @PasswordSalt)";
 
       SqlConnection conn = new SqlConnection(connectionString);
 

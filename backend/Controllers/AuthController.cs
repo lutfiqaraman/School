@@ -1,6 +1,7 @@
 
 using System.Threading.Tasks;
 using backend.Data;
+using backend.Dtos;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,18 +18,18 @@ namespace backend.Controllers
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(string username, string password)
+    public async Task<IActionResult> Register(UserForRegisterDto userForRegister)
     {
-      username = username.ToLower();
+      userForRegister.UserName = userForRegister.UserName.ToLower();
 
-      if (await _repo.IsUserExist(username))
+      if (await _repo.IsUserExist(userForRegister.UserName))
         return BadRequest("User is already exist");
       
       User userToBeCreated = new User {
-        UserName = username
+        UserName = userForRegister.UserName
       };
 
-      var createdUser = await _repo.Register(userToBeCreated, password);
+      var createdUser = await _repo.Register(userToBeCreated, userForRegister.Password);
       return StatusCode(201);
     }
 
