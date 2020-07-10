@@ -20,6 +20,7 @@ namespace backend.Controllers
     [HttpPost("register")]
     public async Task<IActionResult> Register(UserForRegisterDto userForRegister)
     {
+
       userForRegister.UserName = userForRegister.UserName.ToLower();
 
       if (await _repo.IsUserExist(userForRegister.UserName))

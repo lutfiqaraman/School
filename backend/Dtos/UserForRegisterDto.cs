@@ -1,8 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace backend.Dtos
 {
-    public class UserForRegisterDto
-    {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-    }
+  public class UserForRegisterDto
+  {
+    [Required]
+    public string UserName { get; set; }
+    
+    [Required]
+    [StringLength(8, MinimumLength = 4, ErrorMessage = "You must specify password between 4 and 8")]
+    public string Password { get; set; }
+  }
 }
