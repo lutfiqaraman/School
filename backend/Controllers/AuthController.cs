@@ -1,9 +1,11 @@
 
+using System.Security.Claims;
 using System.Threading.Tasks;
 using backend.Data;
 using backend.Dtos;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace backend.Controllers
 {
@@ -12,9 +14,12 @@ namespace backend.Controllers
   public class AuthController : ControllerBase
   {
     private readonly IAuthRepository _repo;
-    public AuthController(IAuthRepository repo)
+    private readonly IConfiguration _config;
+
+    public AuthController(IAuthRepository repo, IConfiguration config)
     {
       _repo = repo;
+      _config = config;
     }
 
     [HttpPost("register")]
@@ -34,5 +39,18 @@ namespace backend.Controllers
       return StatusCode(201);
     }
 
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(UserForLoginDto userForLogin)
+    {
+      User user = await _repo.Login(userForLogin.Username, userForLogin.Password);
+
+      if (user == null)
+        return Unauthorized();
+
+      Claim userIDClaim   = new Claim(ClaimTypes.NameIdentifier, user.Id.ToString());
+      Claim userNameClaim = new Claim(ClaimTypes.NameIdentifier, user.UserName);
+      
+      return Unauthorized();
+    }
   }
 }
