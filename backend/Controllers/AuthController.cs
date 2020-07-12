@@ -1,11 +1,13 @@
 
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using backend.Data;
 using backend.Dtos;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace backend.Controllers
 {
@@ -49,6 +51,9 @@ namespace backend.Controllers
 
       Claim userIDClaim   = new Claim(ClaimTypes.NameIdentifier, user.Id.ToString());
       Claim userNameClaim = new Claim(ClaimTypes.NameIdentifier, user.UserName);
+
+      SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                      _config.GetSection("AppSettings:Token").Value));
       
       return Unauthorized();
     }
