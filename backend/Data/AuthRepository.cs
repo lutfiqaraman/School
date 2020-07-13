@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -46,9 +47,10 @@ namespace backend.Data
 
     public async Task<User> Login(string username, string password)
     {
-      int id = 0;
+      
       string connectionString = _config.GetConnectionString("SchoolDBConnection");
-      string sqlQuery = "Select Id from user where UserName = @UserName";
+      string sqlQuery = "SELECT Id, Username, PasswordHash, PasswordSalt " + 
+                        "FROM Users WHERE UserName = @UserName";
 
       User user = new User();
       SqlConnection conn = new SqlConnection(connectionString);
@@ -58,15 +60,25 @@ namespace backend.Data
         conn.Open();
 
         SqlCommand cmd = new SqlCommand(sqlQuery, conn);
-        cmd.Parameters.AddWithValue("UserName", username);
+        cmd.Parameters.AddWithValue("@UserName", username);
 
-        id = (Int32)await cmd.ExecuteScalarAsync();
+        object id = await cmd.ExecuteScalarAsync();
+
+        if (id is null)
+          return null;
+        
+        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+        DataSet dataSet = new DataSet();
+
+        adapter.Fill(dataSet);
+
+        user.Id = Convert.ToInt32(dataSet.Tables[0].Rows[0]["Id"]);
+        user.UserName = (string) dataSet.Tables[0].Rows[0]["Username"];
+        user.PasswordHash = (Byte[]) dataSet.Tables[0].Rows[0]["PasswordHash"];
+        user.PasswordSalt = (Byte[]) dataSet.Tables[0].Rows[0]["PasswordSalt"];
 
         cmd.Dispose();
       }
-
-      if (id == 0)
-        return null;
 
       bool result = VerifyingPassword(password, user.PasswordHash, user.PasswordSalt);
 

@@ -1,4 +1,6 @@
 
+using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +34,9 @@ namespace backend.Controllers
 
       if (await _repo.IsUserExist(userForRegister.UserName))
         return BadRequest("User is already exist");
-      
-      User userToBeCreated = new User {
+
+      User userToBeCreated = new User
+      {
         UserName = userForRegister.UserName
       };
 
@@ -44,18 +47,34 @@ namespace backend.Controllers
     [HttpPost("login")]
     public async Task<IActionResult> Login(UserForLoginDto userForLogin)
     {
-      User user = await _repo.Login(userForLogin.Username, userForLogin.Password);
+      User user = await _repo.Login(userForLogin.Username.ToLower(), userForLogin.Password);
 
       if (user == null)
         return Unauthorized();
 
-      Claim userIDClaim   = new Claim(ClaimTypes.NameIdentifier, user.Id.ToString());
-      Claim userNameClaim = new Claim(ClaimTypes.NameIdentifier, user.UserName);
+      Claim[] claims = new[]
+      {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.NameIdentifier, user.UserName)
+      };
 
       SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
                       _config.GetSection("AppSettings:Token").Value));
+
+      SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+      SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+      {
+        Subject = new ClaimsIdentity(claims),
+        Expires = DateTime.Now.AddDays(1),
+        SigningCredentials = creds
+      };
+
+      JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+      SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
       
-      return Unauthorized();
+      return Ok(new {
+        token = tokenHandler.WriteToken(token)
+      });
     }
   }
 }
