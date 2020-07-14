@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "4sendvELjHsQ+cz5tmTlUQ0REzfkuAidDqYIBtlUHhZ9qoNkFM8nKIaXlCQxVbBD3gM7HMo03t00zNnz+NBQ3A==",
+  "dgSpecHash": "l9hHdzPizIMk7fmElg6/A1vvzdb7ESvJUfLXSwwojY/pUXvCAH56N73FWNFLGmYUdeRASBSMLOUkpKUosa1lxA==",
   "success": true,
   "projectFilePath": "C:\\Users\\lutfi\\Desktop\\school\\backend\\backend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lutfi\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.6\\microsoft.aspnetcore.authentication.jwtbearer.3.1.6.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\lutfi\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.7.1\\microsoft.identitymodel.jsonwebtokens.6.7.1.nupkg.sha512",
     "C:\\Users\\lutfi\\.nuget\\packages\\microsoft.identitymodel.logging\\6.7.1\\microsoft.identitymodel.logging.6.7.1.nupkg.sha512",
+    "C:\\Users\\lutfi\\.nuget\\packages\\microsoft.identitymodel.protocols\\5.5.0\\microsoft.identitymodel.protocols.5.5.0.nupkg.sha512",
+    "C:\\Users\\lutfi\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\5.5.0\\microsoft.identitymodel.protocols.openidconnect.5.5.0.nupkg.sha512",
     "C:\\Users\\lutfi\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.7.1\\microsoft.identitymodel.tokens.6.7.1.nupkg.sha512",
     "C:\\Users\\lutfi\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
